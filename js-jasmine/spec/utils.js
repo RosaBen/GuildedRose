@@ -9,6 +9,6 @@ const getQualityOnly = () => items.map(item => item.quality);
 
 const getSellInOnly = () => items.map(item => item.sellIn);
 
-console.log(getSellInOnly());
+const qualityNotNegative = (day, array, index) => Math.max(0, array[index] - (day + 1));
 
-export { getMaxQuality, getQualityOnly, getSellInOnly };
+export { getMaxQuality, getQualityOnly, getSellInOnly, qualityNotNegative };
