@@ -5,6 +5,7 @@ import { items } from './data.js';
 describe('Gilded Rose', function () {
   describe("Normal items", function () {
 
+
     it("quality should decreased by 1", function () {
       // step1 => liste item a verifier
       const normalItems = items.filter(item =>
@@ -16,19 +17,19 @@ describe('Gilded Rose', function () {
       // step2 => create Shop
       const shop = new Shop(normalItems);
       console.log("shop", shop);
+
       // step3 => keep initial data for comparison
       const initialQuality = shop.items.map(item => item.quality);
 
       console.log("initialQuality", initialQuality);
       console.log("Initial state:");
+
       shop.items.forEach(item => {
         console.log(`${item.name}: quality=${item.quality}, sellIn=${item.sellIn}`);
       });
-
       for (let day = 0; day < 3; day++) {
         shop.updateQuality();
         console.log(`\n-------- day ${day + 1} --------`);
-
         // decrease de 1 mais ne doit pas etre en dessous de zero
         shop.items.forEach((item, index) => {
           const expectedQuality = qualityNotNegative(initialQuality, index) - (day + 1);
@@ -39,6 +40,34 @@ describe('Gilded Rose', function () {
       }
     });
     console.log(`\n-------- First test --------`);
+
+    it("quality should decreased by 2 if sellIn < 0", function () {
+
+      const expiredItems = [
+        new Item("+5 Dexterity Vest", -1, 20),
+        new Item("Elixir of the Mongoose", -2, 7)
+      ];
+
+
+      const shopExpired = new Shop(expiredItems);
+
+      const initialQualityExpired = shopExpired.items.map(item => item.quality);
+
+      console.log('tst', shopExpired);
+      expiredItems.forEach(item => {
+        console.log(`${item.name}: quality=${item.quality}, sellIn=${item.sellIn}`);
+      });
+      shopExpired.updateQuality();
+      console.log(`\n-------- TEST--------`);
+      // decrease de 2 si sellIn en dessous de zero
+      shopExpired.items.forEach((item, index) => {
+        const expectedQualityExpired = qualityNotNegative(initialQualityExpired, index) - 2;
+        console.log(`${item.name}: quality=${item.quality}, sellIn=${item.sellIn}`);
+        console.log(`Expected: ${expectedQualityExpired}, Actual: ${item.quality}`);
+        expect(item.quality).toBe(expectedQualityExpired);
+      });
+    });
+    console.log(`\n-------- Second test --------`);
   });
 });
 
