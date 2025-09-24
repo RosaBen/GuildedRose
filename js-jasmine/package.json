@@ -2,8 +2,9 @@
   "name": "gilded-rose-kata",
   "version": "1.0.0",
   "description": "Gilded Rose kata in Javascript with Jasmine",
+  "type": "module",
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine spec/gilded_rose_spec.js"
   },
   "repository": {
     "type": "git",
