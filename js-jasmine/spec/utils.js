@@ -1,14 +1,13 @@
-import { items } from './data.js';
 
-const getMaxQuality = () => {
-  const itemsQuality = items.map(item => item.quality);
-  return Math.max(...itemsQuality);
+const getMaxQuality = (array) => {
+  const arrayQuality = array.map(item => item.quality);
+  return Math.max(...arrayQuality);
 };
 
-const getQualityOnly = () => items.map(item => item.quality);
+const getQualityOnly = (array) => array.map(item => item.quality);
 
-const getSellInOnly = () => items.map(item => item.sellIn);
+const getSellInOnly = (array) => array.map(item => item.sellIn);
 
-const qualityNotNegative = (day, array, index) => Math.max(0, array[index] - (day + 1));
+const qualityNotNegative = (array, index) => Math.max(0, array[index]);
 
 export { getMaxQuality, getQualityOnly, getSellInOnly, qualityNotNegative };
